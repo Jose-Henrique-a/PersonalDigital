@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Trainer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Estilo para os textareas */
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            background-color: #F0E68C;
+            border-radius: 5px;
+            box-shadow: 5px 5px 10px;
+            resize: none;
+            overflow: hidden;
+        }
+        textarea[readonly] {
+            background-color: #E6E6FA; /* Cor para o textarea de resposta do IA */
+        }
+    </style>
+    <script>
+        // Função para ajustar a altura dos textareas automaticamente
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+
+        // Aplica o ajuste ao carregar a página e ao digitar
+        window.onload = function() {
+            const respostaTextarea = document.getElementById('resposta');
+            const perguntaTextarea = document.getElementById('pergunta');
+            
+            if (respostaTextarea) autoResize(respostaTextarea);
+            if (perguntaTextarea) {
+                autoResize(perguntaTextarea);
+                perguntaTextarea.addEventListener('input', function() {
+                    autoResize(this);
+                });
+            }
+        };
+    </script>
+</head>
+<body>
+    <form method="POST" action="/">
+        <img src="{{ url_for('static', filename='robozim.jpg') }}" alt="Imagem do Personal Trainer" width="130" height="130" style="float: right; margin-right: 15px;">        <h1>Olá! Sou o DiZétal, <br>seu Personal Trainer digital!</h1>
+        <!-- imagem ao lado do título -->
+        <label>Resposta do Personal Trainer:</label>
+        <textarea id="resposta" readonly>{{ resultado if resultado else 'Aqui aparecerão minhas respostas!' }}</textarea>
+        
+        <label for="pergunta">Fale comigo: (ex.: <br>Tipo fisico: Ectomorfo | Quantidade de dias para treinar por semana: x dias | Objetivo: ganhar ou peder massa muscular') </label>
+        <textarea id="pergunta" name="pergunta" placeholder="Digite sua pergunta ou informações aqui"></textarea>
+        
+        <button type="submit">Enviar</button>
+        <p style="font-family: 'Brush Script MT', cursive; font-size: 18px;">By José Henrique</p>
+    </form>
+</body>
+</html>
