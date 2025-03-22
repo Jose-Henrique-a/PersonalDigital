@@ -4,11 +4,11 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 
-API_KEY = os.getenv("API_KEY")
 
-load_dotenv()
 
 app = Flask(__name__)
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
 
 # Configurar a API do Google Generative AI
 genai.configure(api_key=API_KEY)
